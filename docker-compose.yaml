@@ -1,0 +1,20 @@
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8001:8001
+    depends_on:
+      - postgres
+  
+  postgres:
+    container_name: postgres
+    image: postgres:17.0-alpine3.20
+    environment:
+      - POSTGRES_DB=flask
+      - POSTGRES_PASSWORD=QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
