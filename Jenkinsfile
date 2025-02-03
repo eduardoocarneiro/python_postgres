@@ -8,12 +8,12 @@ pipeline {
         }
         stage('Docker compose') {
             steps {
-                sh 'docker compose up -d'
+                echo 'Deploy ok'
             }
         }
-        stage('Deploy') {
+        stage('Undeploy') {
             steps {
-                echo 'Deploying....'
+                sh 'docker compose up -d'
             }
         }
     }
