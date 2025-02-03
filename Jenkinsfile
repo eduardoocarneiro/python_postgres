@@ -8,12 +8,13 @@ pipeline {
         }
         stage('Docker compose') {
             steps {
-                echo 'Deploy ok'
+                sshCommand remote: 'ssh', command: 'docker compose up -d', failOnError: true
             }
         }
         stage('Undeploy') {
             steps {
-                sh 'docker compose down'
+                echo 'Undeploying...'
+                // sh 'docker compose down'
             }
         }
     }
