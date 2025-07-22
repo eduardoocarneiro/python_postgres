@@ -33,8 +33,8 @@ Nesse ponto teremos dois conteiners iniciados:
 - ```postgres```: Banco postgres
 
 # Acessando a aplicação
-A aplicação expõe a porta 8001, portanto para acessá-la basta acessar a seguinte URL no browser:
+A aplicação expõe a porta 8000, portanto para acessá-la basta acessar a seguinte URL no browser:
 
 ```
-http://localhost:8001
+http://localhost:8000
 ```
