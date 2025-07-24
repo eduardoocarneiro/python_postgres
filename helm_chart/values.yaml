@@ -42,7 +42,7 @@ global:
   app:
     name: cadastro-pessoas
     image:
-      repository: registry.seduc.ce.gov.br/base/cadastro-pessoas-app
+      repository: ghcr.io/eduardoocarneiro/cadastro-pessoas
       tag: v1.0.0
     port: 8000
     containerPort: 8000
