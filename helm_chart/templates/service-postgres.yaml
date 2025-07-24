@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.service_postgres.name }}
+  name: {{ .Values.global.service_postgres.name }}
 spec:
   selector:
-    app: {{ .Values.postgres.name }}
+    app: {{ .Values.global.postgres.name }}
   ports:
-    - protocol: {{ index .Values.service_postgres.ports 0 "protocol" }}
-      port: {{ index .Values.service_postgres.ports 0 "port" }}
+    - protocol: {{ index .Values.global.service_postgres.ports 0 "protocol" }}
+      port: {{ index .Values.global.service_postgres.ports 0 "port" }}

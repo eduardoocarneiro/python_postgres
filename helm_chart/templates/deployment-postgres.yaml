@@ -1,37 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.postgres.name }}
+  name: {{ .Values.global.postgres.name }}
 spec:
-  replicas: {{ .Values.postgres.replicas }}
+  replicas: {{ .Values.global.postgres.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.postgres.selector.matchLabels.app }}
+      app: {{ .Values.global.postgres.selector.matchLabels.app }}
   template:
     metadata:
       labels:
-        app: {{ .Values.postgres.selector.matchLabels.app }}
+        app: {{ .Values.global.postgres.selector.matchLabels.app }}
     spec:
       containers:
-        - name: {{ index .Values.postgres.containers 0 "name" }}
-          image: {{ .Values.postgres.image }}
+        - name: {{ index .Values.global.postgres.containers 0 "name" }}
+          image: {{ .Values.global.postgres.image }}
           env:
-            - name: {{ index .Values.postgres.containers 0 "env" 0 "name" }}
-              value: {{ index .Values.postgres.containers 0 "env" 0 "value" }}
-            - name: {{ index .Values.postgres.containers 0 "env" 1 "name" }}
-              value: {{ index .Values.postgres.containers 0 "env" 1 "value" }}
+            - name: {{ index .Values.global.db 1 "name" }}
+              value: {{ index .Values.global.db 1 "value" }}
+            - name: {{ index .Values.global.db 2 "name" }}
+              value: {{ index .Values.global.db 2 "value" }}
           ports:
-            - containerPort: {{ index .Values.postgres.ports 0 "containerPort" }}
+            - containerPort: {{ index .Values.global.postgres.ports 0 "containerPort" }}
           volumeMounts:
-            - name: {{ index .Values.postgres.volumeMounts 0 "name" }}
-              mountPath: {{ index .Values.postgres.volumeMounts 0 "mountPath" }}
-            - name: {{ index .Values.postgres.volumeMounts 1 "name" }}
-              mountPath: {{ index .Values.postgres.volumeMounts 1 "mountPath" }}
-              subPath: {{ index .Values.postgres.volumeMounts 1 "subPath" }}
+            - name: {{ index .Values.global.postgres.volumeMounts 0 "name" }}
+              mountPath: {{ index .Values.global.postgres.volumeMounts 0 "mountPath" }}
+            - name: {{ index .Values.global.postgres.volumeMounts 1 "name" }}
+              mountPath: {{ index .Values.global.postgres.volumeMounts 1 "mountPath" }}
+              subPath: {{ index .Values.global.postgres.volumeMounts 1 "subPath" }}
       volumes:
-        - name: {{ index .Values.postgres.volumes 0 "name" }}
+        - name: {{ index .Values.global.postgres.volumes 0 "name" }}
           persistentVolumeClaim:
-            claimName: {{ index .Values.postgres.volumes 0 "persistentVolumeClaim" "claimName" }}
-        - name: {{ index .Values.postgres.volumes 1 "name" }}
+            claimName: {{ index .Values.global.postgres.volumes 0 "persistentVolumeClaim" "claimName" }}
+        - name: {{ index .Values.global.postgres.volumes 1 "name" }}
           configMap:
-            name: {{ index (index .Values.postgres.volumes 1 "configMap") "name" }}
+            name: {{ index (index .Values.global.postgres.volumes 1 "configMap") "name" }}

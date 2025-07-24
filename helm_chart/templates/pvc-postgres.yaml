@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.pvc.name }}
+  name: {{ .Values.global.pvc.name }}
 spec:
   accessModes:
-    - {{ index .Values.pvc.accessModes 0 }}
+    - {{ index .Values.global.pvc.accessModes 0 }}
   resources:
     requests:
-      storage: {{ .Values.postgres.volumeSize }}
-  storageClassName: {{ .Values.pvc.storageClassName }}
+      storage: {{ .Values.global.postgres.volumeSize }}
+  storageClassName: {{ .Values.global.pvc.storageClassName }}

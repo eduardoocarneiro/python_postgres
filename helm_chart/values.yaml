@@ -1,91 +1,90 @@
-# Values for the cadastro-pessoas application
-# Define the necessary configurations for the deployment, service, and other resources in the Helm Chart.
-app:
-  name: cadastro-pessoas
-  image:
-    repository: registry.seduc.ce.gov.br/base/cadastro-pessoas-app
-    tag: v1.0.0
-  port: 8000
-  containerPort: 8000
-  replicas: 1
-  containers:
-    - name: cadastro-pessoas
-      env:
-        - name: DB_HOST
-          value: postgres
-        - name: DB_NAME
-          value: flask
-        - name: DB_PASSWORD
-          value: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Initial password. Change it for production.
-  selector:
-    matchLabels:
+# Global shared values
+global:
+  # Database Values
+  # Configuration of the PostgreSQL database used by the application.
+  db:
+    - name: DB_HOST
+      value: postgres
+    - name: POSTGRES_DB
+      value: flask
+    - name: POSTGRES_PASSWORD
+      value: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Initial password. Change it for production.
+  # PostgreSQL Values
+  # Configuration of the PostgreSQL used by the application.
+  postgres:
+    name: postgres
+    replicas: 1
+    selector:
+      matchLabels:
+        app: postgres
+    containers:
+      - name: postgres
+    ports:
+      - containerPort: 5432
+    volumeMounts:
+      - name: postgres-storage
+        mountPath: /var/lib/postgresql/data
+      - name: initdb-volume
+        mountPath: /docker-entrypoint-initdb.d/initdb.sql
+        subPath: initdb.sql
+    volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc
+      - name: initdb-volume
+        configMap:
+          name: initdb-sql
+    image: postgres:17.0-alpine3.20
+    dbName: flask
+    password: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Initial password. Change it for production.
+    volumeSize: 1Gi
+
+  # Values for the cadastro-pessoas application
+  # Define the necessary configurations for the deployment, service, and other resources in the Helm Chart.
+  app:
+    name: cadastro-pessoas
+    image:
+      repository: registry.seduc.ce.gov.br/base/cadastro-pessoas-app
+      tag: v1.0.0
+    port: 8000
+    containerPort: 8000
+    replicas: 1
+    containers:
+      - name: cadastro-pessoas
+    selector:
+      matchLabels:
+        app: flask-app
+  
+  # PVC Values
+  # Configuration of the Persistent Volume Claim (PVC) for PostgreSQL.
+  pvc:
+    name: postgres-pvc
+    accessModes:
+      - ReadWriteOnce
+    storageClassName: local-path
+    resources:
+      requests:
+        storage: 1Gi
+
+  # Application Service Values
+  # Configuration of the service that exposes the cadastro-pessoas application.
+  service_app:
+    name: cadastro-pessoas
+    selector:
       app: flask-app
+      ports:
+        - protocol: TCP
+          port: 8000
+          nodePort: 30777
+      type: NodePort
 
-# PostgreSQL Values
-# Configuration of the PostgreSQL database used by the application.
-postgres:
-  name: postgres
-  replicas: 1
-  selector:
-    matchLabels:
+  # PostgreSQL Service Values
+  # Configuration of the service that exposes the PostgreSQL database.
+  service_postgres:
+    name: postgres
+    type: ClusterIP
+    selector:
       app: postgres
-  containers:
-    - name: postgres
-      env:
-        - name: POSTGRES_DB
-          value: flask
-        - name: POSTGRES_PASSWORD
-          value: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Initial password. Change it for production.
-  ports:
-    - containerPort: 5432
-  volumeMounts:
-    - name: postgres-storage
-      mountPath: /var/lib/postgresql/data
-    - name: initdb-volume
-      mountPath: /docker-entrypoint-initdb.d/initdb.sql
-      subPath: initdb.sql
-  volumes:
-    - name: postgres-storage
-      persistentVolumeClaim:
-        claimName: postgres-pvc
-    - name: initdb-volume
-      configMap:
-        name: initdb-sql
-  image: postgres:17.0-alpine3.20
-  dbName: flask
-  password: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Initial password. Change it for production.
-  volumeSize: 1Gi
-
-# PVC Values
-# Configuration of the Persistent Volume Claim (PVC) for PostgreSQL.
-pvc:
-  name: postgres-pvc
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: local-path
-  resources:
-    requests:
-      storage: 1Gi
-
-# Application Service Values
-# Configuration of the service that exposes the cadastro-pessoas application.
-service_app:
-  name: cadastro-pessoas
-selector:
-  app: flask-app
-  ports:
-    - protocol: TCP
-      port: 8000
-      nodePort: 30777
-  type: NodePort
-
-# PostgreSQL Service Values
-# Configuration of the service that exposes the PostgreSQL database.
-service_postgres:
-  name: postgres
-  type: ClusterIP
-  selector:
-    app: postgres
-  ports:
-    - protocol: TCP
-      port: 5432
+    ports:
+      - protocol: TCP
+        port: 5432
