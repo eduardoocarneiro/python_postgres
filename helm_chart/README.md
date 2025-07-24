@@ -1,9 +1,9 @@
 # Choose documentation version:
 
-* [English](#people-registration)
-* [PTBR](#cadastro-de-pessoas)
+* [English](#people-registration-app)
+* [PTBR](#cadastro-de-pessoas-app)
 
-# People Registration
+# People Registration App
 Kubernetes version of the People Registration application.
 
 ## Requirements
@@ -50,7 +50,7 @@ service/postgres           ClusterIP   10.107.174.179   <none>        5432/TCP  
 
 As we can see, the ```cadastro-pessoas``` service is a ```NodePort```. This allows external access to the application on port ```30777```. If you wish, you can configure an ingress controller or Gateway API in your cluster and modify this setup to create a URL for your application.
 
-# Cadastro de Pessoas
+# Cadastro de Pessoas App
 Versão kubernetes da aplicação cadastro de pessoas.
 
 ## Requisitos
