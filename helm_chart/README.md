@@ -24,7 +24,7 @@ After successfully executing this guide, the following resources will be provisi
 Clone the project:
 
 ```
-https://github.com/eduardoocarneiro/python_postgres.git
+git clone https://github.com/eduardoocarneiro/python_postgres.git
 cd python_postgres/
 ```
 
