@@ -16,7 +16,7 @@ app:
         - name: DB_NAME
           value: flask
         - name: DB_PASSWORD
-          value: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Preencha com a senha do banco de dados
+          value: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Initial password. Change it for production.
   selector:
     matchLabels:
       app: flask-app
