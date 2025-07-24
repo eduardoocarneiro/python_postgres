@@ -1,4 +1,3 @@
-# Global shared values
 global:
   # Database Values
   # Configuration of the PostgreSQL database used by the application.
@@ -9,6 +8,7 @@ global:
       value: flask
     - name: POSTGRES_PASSWORD
       value: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Initial password. Change it for production.
+  
   # PostgreSQL Values
   # Configuration of the PostgreSQL used by the application.
   postgres:
