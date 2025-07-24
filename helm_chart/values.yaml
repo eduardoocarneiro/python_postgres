@@ -35,7 +35,7 @@ postgres:
         - name: POSTGRES_DB
           value: flask
         - name: POSTGRES_PASSWORD
-          value: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Senha do banco de dados
+          value: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Initial password. Change it for production.
   ports:
     - containerPort: 5432
   volumeMounts:
@@ -53,7 +53,7 @@ postgres:
         name: initdb-sql
   image: postgres:17.0-alpine3.20
   dbName: flask
-  password: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Senha do banco de dados
+  password: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Initial password. Change it for production.
   volumeSize: 1Gi
 
 # PVC Values
