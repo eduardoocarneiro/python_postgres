@@ -28,7 +28,7 @@ https://github.com/eduardoocarneiro/python_postgres.git
 cd python_postgres/
 ```
 
-Install the chart. This document installs it in the cadastro-pessoas namespace. You can change this as you prefer.
+Install the chart. This document installs it in the ```cadastro-pessoas``` namespace. You can change this as you prefer.
 
 ```
 helm install cadastro-pessoas ./helm_chart/ -n cadastro-pessoas --create-namespace
