@@ -1,4 +1,4 @@
-# Choose the version:
+# Choose documentation version:
 
 * [English](#people-registration)
 * [PTBR](#cadastro-de-pessoas)
