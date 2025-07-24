@@ -15,10 +15,9 @@ Simple Python application that queries, inserts, updates, or deletes people data
 # Installation
 Clone the project:
 ```
-git clone https://github.com/eduardoocarneiro/python_postgres_form.git
+git clone https://github.com/eduardoocarneiro/python_postgres.git
 
-cd python_postgres_form
-
+cd python_postgres
 ```
 
 Build the application:
@@ -59,10 +58,9 @@ Aplicação simples em Python que consulta, insere, altera ou deleta dados de pe
 # Instalação
 Clonar o projeto:
 ```
-git clone https://github.com/eduardoocarneiro/python_postgres_form.git
+git clone https://github.com/eduardoocarneiro/python_postgres.git
 
-cd python_postgres_form
-
+cd python_postgres
 ```
 
 Fazer o build da aplicação:
