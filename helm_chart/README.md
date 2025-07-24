@@ -50,6 +50,13 @@ service/postgres           ClusterIP   10.111.231.32    <none>        5432/TCP  
 
 As we can see, the ```cadastro-pessoas``` service is a ```NodePort```. This allows external access to the application on port ```30777```. If you wish, you can configure an ingress controller or Gateway API in your cluster and modify this setup to create a URL for your application.
 
+## Clean up
+Just run the command bellow
+
+```
+helm uninstall cadastro-pessoas -n cadastro-pessoas
+```
+
 # Cadastro de Pessoas App
 Versão kubernetes da aplicação cadastro de pessoas.
 
@@ -96,3 +103,10 @@ service/postgres           ClusterIP   10.107.174.179   <none>        5432/TCP  
 ```
 
 Como podemos observar, o serviço ```cadastro-pessoas``` é do tipo ```NodePort```. Isso possibilita o acesso externo à aplicação na porta ```30777```. Caso queira, você pode configurar um ingress controller ou gateway API no seu cluster e alterar esse código para criar uma URL para sua aplicação.
+
+## Limpeza
+Apenas execute o comando abaixo:
+
+```
+helm uninstall cadastro-pessoas -n cadastro-pessoas
+```
