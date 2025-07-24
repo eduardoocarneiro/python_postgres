@@ -76,6 +76,7 @@ selector:
   ports:
     - protocol: TCP
       port: 8000
+      nodePort: 30777
   type: NodePort
 
 # Values do serviço do postgreSQL

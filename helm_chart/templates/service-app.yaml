@@ -8,4 +8,5 @@ spec:
   ports:
     - protocol: {{ index .Values.selector.ports 0 "protocol" }}
       port: {{ index .Values.selector.ports 0 "port" }}
+      nodePort: {{ index .Values.selector.ports 0 "nodePort" }}
   type: {{ .Values.selector.type }}
