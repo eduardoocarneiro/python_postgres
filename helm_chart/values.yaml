@@ -14,7 +14,7 @@ app:
         - name: DB_HOST
           value: postgres
         - name: DB_NAME
-          value: flask # Nome do banco de dados
+          value: flask
         - name: DB_PASSWORD
           value: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Preencha com a senha do banco de dados
   selector:
@@ -33,7 +33,7 @@ postgres:
     - name: postgres
       env:
         - name: POSTGRES_DB
-          value: flask # Nome do banco de dados
+          value: flask
         - name: POSTGRES_PASSWORD
           value: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Senha do banco de dados
   ports:
@@ -52,7 +52,7 @@ postgres:
       configMap:
         name: initdb-sql
   image: postgres:17.0-alpine3.20
-  dbName: flask # Nome do banco de dados
+  dbName: flask
   password: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Senha do banco de dados
   volumeSize: 1Gi
 
