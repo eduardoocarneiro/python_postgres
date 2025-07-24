@@ -1,0 +1,90 @@
+# Values da aplicação cadastro-pessoas
+# Definem as configurações necessárias para o deployment, service e outros recursos do Helm Chart.
+app:
+  name: cadastro-pessoas
+  image:
+    repository: registry.seduc.ce.gov.br/base/cadastro-pessoas-app
+    tag: v1.0.0
+  port: 8000
+  containerPort: 8000
+  replicas: 1
+  containers:
+    - name: cadastro-pessoas
+      env:
+        - name: DB_HOST
+          value: postgres
+        - name: DB_NAME
+          value: flask # Nome do banco de dados
+        - name: DB_PASSWORD
+          value: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Preencha com a senha do banco de dados
+  selector:
+    matchLabels:
+      app: flask-app
+
+# Values do PostgreSQL
+# Configurações do banco de dados PostgreSQL utilizado pela aplicação.
+postgres:
+  name: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  containers:
+    - name: postgres
+      env:
+        - name: POSTGRES_DB
+          value: flask # Nome do banco de dados
+        - name: POSTGRES_PASSWORD
+          value: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Senha do banco de dados
+  ports:
+    - containerPort: 5432
+  volumeMounts:
+    - name: postgres-storage
+      mountPath: /var/lib/postgresql/data
+    - name: initdb-volume
+      mountPath: /docker-entrypoint-initdb.d/initdb.sql
+      subPath: initdb.sql
+  volumes:
+    - name: postgres-storage
+      persistentVolumeClaim:
+        claimName: postgres-pvc
+    - name: initdb-volume
+      configMap:
+        name: initdb-sql
+  image: postgres:17.0-alpine3.20
+  dbName: flask # Nome do banco de dados
+  password: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Senha do banco de dados
+  volumeSize: 1Gi
+
+# Values do PVC
+# Configurações do Persistent Volume Claim (PVC) para o PostgreSQL.
+pvc:
+  name: postgres-pvc
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 1Gi
+
+# Values do serviço da aplicação
+# Configurações do serviço que expõe a aplicação cadastro-pessoas.
+service_app:
+  name: cadastro-pessoas
+selector:
+  app: flask-app
+  ports:
+    - protocol: TCP
+      port: 8000
+  type: NodePort
+
+# Values do serviço do postgreSQL
+# Configurações do serviço que expõe o banco de dados PostgreSQL.
+service_postgres:
+  name: postgres
+  type: ClusterIP
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432

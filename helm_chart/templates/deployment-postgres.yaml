@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.postgres.name }}
+spec:
+  replicas: {{ .Values.postgres.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.postgres.selector.matchLabels.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.postgres.selector.matchLabels.app }}
+    spec:
+      containers:
+        - name: {{ index .Values.postgres.containers 0 "name" }}
+          image: {{ .Values.postgres.image }}
+          env:
+            - name: {{ index .Values.postgres.containers 0 "env" 0 "name" }}
+              value: {{ index .Values.postgres.containers 0 "env" 0 "value" }}
+            - name: {{ index .Values.postgres.containers 0 "env" 1 "name" }}
+              value: {{ index .Values.postgres.containers 0 "env" 1 "value" }}
+          ports:
+            - containerPort: {{ index .Values.postgres.ports 0 "containerPort" }}
+          volumeMounts:
+            - name: {{ index .Values.postgres.volumeMounts 0 "name" }}
+              mountPath: {{ index .Values.postgres.volumeMounts 0 "mountPath" }}
+            - name: {{ index .Values.postgres.volumeMounts 1 "name" }}
+              mountPath: {{ index .Values.postgres.volumeMounts 1 "mountPath" }}
+              subPath: {{ index .Values.postgres.volumeMounts 1 "subPath" }}
+      volumes:
+        - name: {{ index .Values.postgres.volumes 0 "name" }}
+          persistentVolumeClaim:
+            claimName: {{ index .Values.postgres.volumes 0 "persistentVolumeClaim" "claimName" }}
+        - name: {{ index .Values.postgres.volumes 1 "name" }}
+          configMap:
+            name: {{ index (index .Values.postgres.volumes 1 "configMap") "name" }}

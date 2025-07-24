@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}
+spec:
+  replicas: {{ .Values.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.selector.matchLabels.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.selector.matchLabels.app }}
+    spec:
+      containers:
+        - name: {{ index .Values.app.containers 0 "name" }}
+          image: {{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}
+          ports:
+            - containerPort: {{ .Values.app.containerPort }}
+          env:
+            - name: {{ index .Values.app.containers 0 "env" 0 "name" }}
+              value: {{ index .Values.app.containers 0 "env" 0 "value" }}
+            - name: {{ index .Values.app.containers 0 "env" 1 "name" }}
+              value: {{ .Values.postgres.dbName }}
+            - name: {{ index .Values.app.containers 0 "env" 2 "name" }}
+              value: {{ .Values.postgres.password }}
