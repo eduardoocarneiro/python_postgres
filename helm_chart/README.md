@@ -40,12 +40,12 @@ Run the command below to view the provisioned pods and services:
 kubectl get pod,svc -n cadastro-pessoas
 
 NAME                                    READY   STATUS    RESTARTS   AGE
-pod/cadastro-pessoas-7585d6dc4f-vbvsj   1/1     Running   0          48s
-pod/postgres-7bb585b768-m29c6           1/1     Running   0          48s
+pod/cadastro-pessoas-7585d6dc4f-947k4   1/1     Running   0          28s
+pod/postgres-7bb585b768-nwbzr           1/1     Running   0          28s
 
 NAME                       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-service/cadastro-pessoas   NodePort    10.111.219.74    <none>        8000:32656/TCP   48s
-service/postgres           ClusterIP   10.107.174.179   <none>        5432/TCP         48s
+service/cadastro-pessoas   NodePort    10.102.162.224   <none>        8000:30777/TCP   28s
+service/postgres           ClusterIP   10.111.231.32    <none>        5432/TCP         28s
 ```
 
 As we can see, the ```cadastro-pessoas``` service is a ```NodePort```. This allows external access to the application on port ```30777```. If you wish, you can configure an ingress controller or Gateway API in your cluster and modify this setup to create a URL for your application.
