@@ -35,8 +35,6 @@ global:
         configMap:
           name: initdb-sql
     image: postgres:17.0-alpine3.20
-    dbName: flask
-    password: QPbtc2C5J2KBBpeyMARz1fNLDJzKaj5y # Initial password. Change it for production.
     volumeSize: 1Gi
 
   # Values for the cadastro-pessoas application
